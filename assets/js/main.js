@@ -26,11 +26,12 @@ var RPS = (function () {
 			// Array of choosen weapons.
 			chosenWeapons:[],
 			winner:[],
-			init : function () {
-				this.winner = [];
-				this.chosenWeapons = [],
-				console.log("this.inner", this.winner);
-				this.createRandom();
+			init : function (pcVpc) {
+				
+				if (pcVpc){
+					this.createRandom();
+				};
+
 				this.createRandom();
 				this.test();
 			},
@@ -40,6 +41,7 @@ var RPS = (function () {
 				this.chosenWeapons.push(config.weapons[randomNumber]);
 			},
 			test : function () {
+				console.log("123")
 				// given that there is always going to be a result....may as well push the first element into the array.
 				// If beanten, we will just remove it later on down the line.
 				this.winner.push(this.chosenWeapons[0]);
@@ -61,23 +63,45 @@ var RPS = (function () {
 						};
 					};
 				};
-				console.log("winner", this.winner);
+				GameView.updateView();
+
 			}
 		};
 
 		var GameView = {
 			addEvents : function () {
 
-				$('#pcVpc').on("click", function (e) {
+				$('.controlls li').on("click", function (e) {
+					// If the user clicks on the random weapon icon, trigger the init function to pick two random weapons.	
+					if ($(this).hasClass("pcVpc")) {
 					
-					e.prevendDefault	;
-					GameLogic.init();
+						GameLogic.init(true);
+					
+					} else {
+						// Otherwise push the users selection to the chosenWeapons array and pick one random one.
+						RPS.GameLogic.chosenWeapons.push(config.weapons[$(this).index() -1]);
+						console.log("RPS.GameLogic.chosenWeapons", RPS.GameLogic.chosenWeapons);
 
+						GameLogic.init();
+					};
 
 				});
-				$(GameLogic.winner).on("change", function () {
-					console.log("winner2", winner[0].name);
-				})
+
+
+			},
+			updateView : function () {
+
+				// Simply display the two items in the chosen weapon array
+				$(".player:first").attr("class", "player " + RPS.GameLogic.chosenWeapons[0].name);
+				$(".player:last").attr("class", "player " + RPS.GameLogic.chosenWeapons[1].name);
+
+				// Add a watermark to the winning weapons display.
+				$(".player."+RPS.GameLogic.winner[0].name).addClass("winner");
+
+				// Reset the arrays.
+				RPS.GameLogic.winner = [];
+				RPS.GameLogic.chosenWeapons = [];
+
 			}
 
 		};

@@ -1,0 +1,55 @@
+body{
+	padding:0;
+	margin:0;
+	background:url("../images/bgWood.jpg");
+}
+.gameContainer{
+	display:block;
+}
+.player{
+	display:inline-block;
+	width:49%;
+	height:300px;
+}
+.rock{
+	background:url("../images/imgRock.png") 50% 50% no-repeat;
+}
+.paper{
+	background:url("../images/imgPaper.png") 50% 50% no-repeat;
+}
+.scissors{
+	background:url("../images/imgScissors.png") 50% 50% no-repeat;
+}
+.pcVpc{
+	background:url("../images/imgRandom.png") 50% 50% no-repeat;
+}
+
+.winner:after{
+	content: "";
+	display: inline-block;
+	height: 300px;
+	width: 49%;
+	background: url("../images/imgWinner.png") 50% 50% no-repeat;
+	position: absolute;
+}
+ul.controlls{
+	list-style: none;
+	margin: 20px 0 0 0;
+	padding: 50px 0;
+	border-top: solid 3px #000;
+	box-shadow: 4px 0px 33px 6px #000;
+	zoom:0.5;
+}
+ul.controlls li{
+	display:inline-block;
+	width:20%;
+	height:250px;
+	overflow:hidden;
+	text-indent:-999em;
+	margin-left:20px;
+	cursor: pointer;
+	opacity:0.7;
+}
+ul.controlls li:hover{
+	opacity:1;
+}
